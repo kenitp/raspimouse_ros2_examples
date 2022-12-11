@@ -29,7 +29,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(raspimouse_msgs REQUIRED)
 find_package(raspimouse REQUIRED)
-find_package(rt_usb_9axisimu_driver REQUIRED)
+# find_package(rt_usb_9axisimu_driver REQUIRED)
 
 
 include_directories(include)
@@ -63,23 +63,23 @@ ament_target_dependencies(line_follower_component
   raspimouse_msgs)
 rclcpp_components_register_nodes(line_follower_component "line_follower::Follower")
 
-add_library(direction_controller_component SHARED
-  src/direction_controller_component.cpp)
-target_compile_definitions(direction_controller_component
-  PRIVATE "RASPIMOUSE_ROS2_EXAMPLES_BUILDING_DLL")
-ament_target_dependencies(direction_controller_component
-  rclcpp
-  rclcpp_components
-  std_msgs
-  std_srvs
-  geometry_msgs
-  raspimouse_msgs)
-rclcpp_components_register_nodes(direction_controller_component "direction_controller::Controller")
+# add_library(direction_controller_component SHARED
+#   src/direction_controller_component.cpp)
+# target_compile_definitions(direction_controller_component
+#   PRIVATE "RASPIMOUSE_ROS2_EXAMPLES_BUILDING_DLL")
+# ament_target_dependencies(direction_controller_component
+#   rclcpp
+#   rclcpp_components
+#   std_msgs
+#   std_srvs
+#   geometry_msgs
+#   raspimouse_msgs)
+# rclcpp_components_register_nodes(direction_controller_component "direction_controller::Controller")
 
-add_executable(lifecycle_node_manager src/lifecycle_node_manager.cpp)
-ament_target_dependencies(lifecycle_node_manager
-  rclcpp
-  lifecycle_msgs)
+# add_executable(lifecycle_node_manager src/lifecycle_node_manager.cpp)
+# ament_target_dependencies(lifecycle_node_manager
+#   rclcpp
+#   lifecycle_msgs)
 
 add_executable(line_follower src/line_follower.cpp)
 target_link_libraries(line_follower line_follower_component)
@@ -87,12 +87,13 @@ ament_target_dependencies(line_follower
   rclcpp
   raspimouse)
 
-add_executable(direction_controller src/direction_controller.cpp)
-target_link_libraries(direction_controller direction_controller_component)
-ament_target_dependencies(direction_controller
-  rclcpp
-  raspimouse
-  rt_usb_9axisimu_driver)
+# add_executable(direction_controller src/direction_controller.cpp)
+# target_link_libraries(direction_controller direction_controller_component)
+# ament_target_dependencies(direction_controller
+#   rclcpp
+#   raspimouse
+#   rt_usb_9axisimu_driver
+# )
 
 ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
 
@@ -110,7 +111,8 @@ ament_export_include_directories(include)
 ament_export_libraries(
   object_tracking_component
   line_follower_component
-  direction_controller_component)
+  # direction_controller_component
+)
 
 install(
   DIRECTORY include/
@@ -120,7 +122,7 @@ install(
 install(TARGETS
   object_tracking_component
   line_follower_component
-  direction_controller_component
+  # direction_controller_component
   EXPORT export_${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
@@ -128,9 +130,9 @@ install(TARGETS
   INCLUDES DESTINATION include)
 
 install(TARGETS
-  lifecycle_node_manager
+  # lifecycle_node_manager
   line_follower
-  direction_controller
+  # direction_controller
   DESTINATION lib/${PROJECT_NAME})
 
 # python scripts
